@@ -20,7 +20,155 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
     <!--Link to css-->
-    <link rel="stylesheet" type="text/css" href="theme.css" />
+    <link rel="stylesheet" type="text/css" href="./assets/css/style.css" />
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.2.3/firebase-database.js"></script>
   </head>
-  <body></body>
+
+  <body>
+    <div class="jumbotron jumbotron-fluid bg-dark">
+      <div class="container">
+        <h1 class="display-4">Fluid jumbotron</h1>
+        <p class="lead">
+          This is a modified jumbotron that occupies the entire horizontal space
+          of its parent.
+        </p>
+      </div>
+    </div>
+
+    <h3 class="m-3">Check out the Train Schedule</h3>
+    <br />
+
+    <!--Here we will set up the table for displaying the inforrmation from firebase-->
+
+    <table class="table table-dark" id="trainSchedule">
+      <thead>
+        <tr>
+          <th scope="col">Train Name</th>
+          <th scope="col">Destination</th>
+          <th scope="col">Frequency</th>
+          <th scope="col">Next Train Arrival</th>
+          <th scope="col">Minutes from Now</th>
+        </tr>
+      </thead>
+      <!--Make an area of the table to accept input from firebase-->
+      <tbody id="train-list"></tbody>
+    </table>
+
+    <h3 class="m-3">Add a Train</h3>
+
+    <!--Make an area for input from the user...using bootstrap-->
+    <div class="input">
+      <form>
+        <!--Form Fields-->
+        <div class="form-group">
+          <label for="formGroupExampleInput">Train Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            placeholder="example-input"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="formGroupExampleInput">First Train Time</label>
+          <input
+            type="text"
+            class="destination"
+            id="name"
+            placeholder="example-input"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="formGroupExampleInput">Train Name</label>
+          <input
+            type="text"
+            class="firstTrain"
+            id="name"
+            placeholder="example-input"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="formGroupExampleInput">Frequency (Minutes)</label>
+          <input
+            type="text"
+            class="frequency"
+            id="name"
+            placeholder="example-input"
+          />
+        </div>
+      </form>
+      <!--sumbit button-->
+      <button type="sumbit" class="btn btn-primary" id="addTrain">
+        Sumbit Train
+      </button>
+    </div>
+
+    <script>
+      // Your web app's Firebase configuration
+      let firebaseConfig = {
+        apiKey: "AIzaSyDof1xWe1uwZr0-0cjO-fs28rkqKRFx6Uw",
+        authDomain: "train-scheduler-1eca0.firebaseapp.com",
+        databaseURL: "https://train-scheduler-1eca0.firebaseio.com",
+        projectId: "train-scheduler-1eca0",
+        storageBucket: "train-scheduler-1eca0.appspot.com",
+        messagingSenderId: "352005790270",
+        appId: "1:352005790270:web:f259bb5a39c9182de68f6f"
+      };
+      // Initialize Firebase
+
+      firebase.initializeApp(firebaseConfig);
+
+      let database = firebase.database();
+      //--Fill the Firebase with initial data when button is clicked--//
+
+      $("#addTrain").on("click", function(event) {
+        event.preventDefault();
+
+        //--Get the usr input from the fields and assign them variables--//
+
+        let trainName = $("#name")
+          .val()
+          .trim();
+
+        let destination = $("#destination")
+          .val()
+          .trim();
+
+        let firstTrain = $("#firstTrain")
+          .val()
+          .trim();
+
+        let frequency = $("#frequency")
+          .val()
+          .trim();
+
+        //--Creating local storage to operate on the train data--//
+
+        let tempTrain = {
+          name: trainName,
+          destination: destination,
+          firstTrain: firstTrain,
+          frequency: frequency
+        };
+
+        //--Now upload the train data to the database/Firebase--//
+
+        database.ref().push(tempTrain);
+
+        //--Test in console--//
+
+        console.log("The following values were pushed to the Firebase");
+        console.log(tempTrain.name);
+        console.log(tempTrain.destination);
+        console.log(tempTrain.firstTrain);
+        console.log(tempTrain.frequency);
+      });
+    </script>
+  </body>
 </html>
