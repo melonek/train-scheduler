@@ -90,7 +90,7 @@ database.ref().on("child_added", function(snapshot, prevChildKey) {
   //If the first train is later than the current time, send Arrival to the first train time--//
 
   if (maxMoment === trainTime) {
-    tArrival = train.Time.format("hh:mm A");
+    tArrival = trainTime.format("hh:mm A");
     tMinutes = trainTime.diff(moment(), "minutes");
   } else {
     //--Here we need to calculate the minutes until arrival--//
