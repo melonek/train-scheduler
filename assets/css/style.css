@@ -1,0 +1,31 @@
+body {
+  background: darkgray;
+}
+
+.input {
+  margin-left: 90px;
+  margin-right: 90px;
+  color: white;
+}
+
+.display-4 {
+  color: white;
+  font-weight: bolder;
+}
+
+.lead {
+  color: white;
+  font-weight: bolder;
+}
+
+.jumbotron {
+  position: relative;
+  overflow: hidden;
+}
+
+#thomas {
+  width: 100%;
+  position: absolute;
+  bottom: -130px;
+  opacity: 0.5;
+}
